@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Availability</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .card {
+            width: 130px;
+<!--            margin: 10px;-->
+            padding: 20px;
+            font-size: small;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+             max-height: 95.02px;
+        }
+        .available {
+            background-color: green;
+            color: white;
+        }
+        .offline {
+            background-color: red;
+            color: white;
+        }
+    </style>
+    <meta http-equiv="refresh" content="60">
+</head>
+<body>
+
+<!--<div class="container">-->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Service Availability</h1>
+    <a href="#" th:href="@{/add}" class="btn btn-primary">Add New Service</a>
+</div>
+<b th:text="${status}"></b>
+    <div class="row">
+        <div class="col-sm-1" th:each="service : ${services}">
+            <div th:class="'card ' + ${service.availability == T(com.app.manager.entity.Availability).AVAILABLE ? 'available' : 'offline'}"
+                 th:data-toggle="tooltip" th:title="${service.urlLink}">
+                <div class="card-body">
+                    <h7 th:text="${service.name}"></h7>
+                    <p th:text="${service.availability == T(com.app.manager.entity.Availability).AVAILABLE ? 'Available' : 'Offline'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</div>-->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>
